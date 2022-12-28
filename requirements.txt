@@ -1,0 +1,4 @@
+streamlit>=1.16.0
+streamlit-option-menu>=0.3.2
+plotly
+git+https://github.com/fsmosca/streamlit_login_auth_ui.git@username-is-not-case-sensitive
