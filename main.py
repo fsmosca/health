@@ -65,10 +65,20 @@ def get_figures(name):
         df_wide = df
         df_long=pd.melt(df_wide, id_vars=['DateTime'], value_vars=['Systolic', 'Diastolic'])
 
-        fig = px.line(df_long, x='DateTime', y='value', color='variable', markers=True, text='value', height=350)
+        fig = px.line(df_long, x='DateTime', y='value', color='variable', markers=True, text='value')
         fig.update_layout(
             margin=dict(l=75, r=10, t=50, b=50),
-            title_text=f"{name.title()}'s BP", title_x=0.45
+            title_text=f"{name.title()}'s BP", title_x=0.5,
+            legend=dict(
+                x=0.01,
+                y=0.98,
+                traceorder="normal",
+                font=dict(
+                    family="sans-serif",
+                    size=12,
+                    color="black"
+                ),
+            )
         )
         fig.update_traces(connectgaps=True)
         fig.update_traces(textposition="top center")
@@ -77,11 +87,21 @@ def get_figures(name):
         df_wide = df
         df_long=pd.melt(df_wide, id_vars=['DateTime'], value_vars=['Interpret'])
 
-        fig2 = px.line(df_long, x='DateTime', y='value', color='variable', markers=True, text='value', height=350,
+        fig2 = px.line(df_long, x='DateTime', y='value', color='variable', markers=True, text='value',
                        color_discrete_sequence=["#ff97ff"])
         fig2.update_layout(
             margin=dict(l=75, r=10, t=50, b=50),
-            title_text="Interpretation", title_x=0.45
+            title_text="Interpretation", title_x=0.5,
+            legend=dict(
+                x=0.01,
+                y=0.98,
+                traceorder="normal",
+                font=dict(
+                    family="sans-serif",
+                    size=12,
+                    color="black"
+                ),
+            )            
         )
         fig2.update_traces(connectgaps=True)
         fig2.update_traces(textposition="top center")
@@ -92,8 +112,8 @@ def get_figures(name):
 
 
 def show_plots(df, fig, fig2):
-    st.plotly_chart(fig, use_container_width=True, theme=None)
-    st.plotly_chart(fig2, use_container_width=True, theme=None)
+    st.plotly_chart(fig, use_container_width=True, theme=None, height=400)
+    st.plotly_chart(fig2, use_container_width=True, theme=None, height=400)
 
     dfs = df.drop(['Date', 'key'], axis=1)
     dfs = dfs.reset_index(drop=True)
@@ -102,7 +122,7 @@ def show_plots(df, fig, fig2):
         st.markdown(f'''
         <center><strong>History</strong></center>
         ''',unsafe_allow_html=True)
-        st.dataframe(dfs, width=650)
+        st.dataframe(dfs, use_container_width=True)
 
         st.markdown(f'''
         Source of [Interpretation](https://www.healthline.com/health/high-blood-pressure-hypertension/blood-pressure-reading-explained#danger-zone)
@@ -113,7 +133,7 @@ def show_plots(df, fig, fig2):
         st.markdown(f'''
         <center><strong>Legend</strong></center>
         ''',unsafe_allow_html=True)
-        st.dataframe(df_legend, width=650)
+        st.dataframe(df_legend, use_container_width=True)
 
 
 @st.experimental_memo(ttl=600)
