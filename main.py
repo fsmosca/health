@@ -65,10 +65,10 @@ def get_figures(name):
         df_wide = df
         df_long=pd.melt(df_wide, id_vars=['DateTime'], value_vars=['Systolic', 'Diastolic'])
 
-        fig = px.line(df_long, x='DateTime', y='value', color='variable', markers=True, text='value')
+        fig = px.line(df_long, x='DateTime', y='value', color='variable', markers=True, text='value', height=400)
         fig.update_layout(
-            margin=dict(l=75, r=10, t=50, b=50),
-            title_text=f"{name.title()}'s BP", title_x=0.5,
+            margin=dict(l=50, r=10, t=70, b=50),
+            title_text=f"{name.title()}'s BP", title_x=0.5, title_y=0.9,
             legend=dict(
                 x=0.01,
                 y=0.98,
@@ -88,10 +88,11 @@ def get_figures(name):
         df_long=pd.melt(df_wide, id_vars=['DateTime'], value_vars=['Interpret'])
 
         fig2 = px.line(df_long, x='DateTime', y='value', color='variable', markers=True, text='value',
+                       height=400,
                        color_discrete_sequence=["#ff97ff"])
         fig2.update_layout(
-            margin=dict(l=75, r=10, t=50, b=50),
-            title_text="Interpretation", title_x=0.5,
+            margin=dict(l=50, r=10, t=70, b=50),
+            title_text="Interpretation", title_x=0.5, title_y=0.9,
             legend=dict(
                 x=0.01,
                 y=0.98,
@@ -204,10 +205,14 @@ def main():
                 icons=['house', 'bookmark-heart'], menu_icon="cast", default_index=0)
 
         if selected == 'Home':
-            st.markdown('# Home')
+            col = st.columns([2, 3])
+            with col[1]:
+                st.markdown('# Home')
 
         elif selected == 'Health':
-            st.markdown('# Health')
+            col = st.columns([2, 3])
+            with col[1]:
+                st.markdown('# Health')
 
             options = st.secrets['selection']
             name = st.sidebar.selectbox('select name', options)  # set this for entry
