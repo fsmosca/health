@@ -83,7 +83,7 @@ def get_figures(name):
         fig.update_traces(connectgaps=True, textposition="top center")
         fig.update_xaxes(
             dtick="D1",
-            tickformat="%Y-%m-%d",
+            tickformat="%y-%m-%d",
         )
 
 
@@ -111,7 +111,7 @@ def get_figures(name):
         fig2.update_traces(connectgaps=True, textposition="top center")
         fig2.update_xaxes(
             dtick="D1",
-            tickformat="%Y-%m-%d",
+            tickformat="%y-%m-%d",
         )
 
         return df, fig, fig2
