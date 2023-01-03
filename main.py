@@ -10,7 +10,7 @@ from deta import Deta
 st.set_page_config(
     page_title="Health Care",
     page_icon="💊",
-    layout="centered",
+    layout="wide",
     initial_sidebar_state="expanded",
 )
 
@@ -80,8 +80,12 @@ def get_figures(name):
                 ),
             )
         )
-        fig.update_traces(connectgaps=True)
-        fig.update_traces(textposition="top center")
+        fig.update_traces(connectgaps=True, textposition="top center")
+        fig.update_xaxes(
+            dtick="D1",
+            tickformat="%Y-%m-%d",
+        )
+
 
         # fig2
         df_wide = df
@@ -104,8 +108,11 @@ def get_figures(name):
                 ),
             )            
         )
-        fig2.update_traces(connectgaps=True)
-        fig2.update_traces(textposition="top center")
+        fig2.update_traces(connectgaps=True, textposition="top center")
+        fig2.update_xaxes(
+            dtick="D1",
+            tickformat="%Y-%m-%d",
+        )
 
         return df, fig, fig2
 
